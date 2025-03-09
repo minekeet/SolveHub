@@ -1,0 +1,20 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Login</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="Enter your username" required>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Enter your password" required>
+
+        <input type="submit" value="Log In">
+
+        <p class="text-center">Don't have an account? <a href="{% url 'register-customer' %}">Sign up</a></p>
+        <p class="text-center">Do you forget your password? <a href="{% url 'password_reset' %}">Forget Password</a></p>
+    </form>
+</div>
+{% endblock content %}
