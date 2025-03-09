@@ -1,0 +1,29 @@
+{% extends 'users/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container">
+    <h1>Register</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <label for="username">Full Name</label>
+        {{ form.username|add_class:"form-control" }}
+
+        <label for="email">Email</label>
+        {{ form.email|add_class:"form-control" }}
+
+        <label for="department">Department</label>
+        {{ form.department|add_class:"form-control" }}  
+
+        <label for="password1">Password</label>
+        {{ form.password1|add_class:"form-control" }}
+        
+        <label for="password2">Confirm Password</label>
+        {{ form.password2|add_class:"form-control" }}
+
+        <input type="submit" value="Sign Up" class="btn-primary">
+        <p class="text-center">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+    </form>
+</div>
+{% endblock content %}
