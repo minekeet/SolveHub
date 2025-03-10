@@ -1,0 +1,344 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard-wrapper">
+    <div class="dashboard-container">
+        {% if request.user.is_customer %}
+        <div class="header-section">
+            <h1 class="dashboard-title">Customer Dashboard</h1>
+            <p class="welcome-text">Welcome back, <span class="username">{{ user.username }}</span></p>
+        </div>
+        
+        <div class="info-card" id="customerCard">
+            <div class="card-header" onclick="toggleCard('customerCard')">
+                <h2>Key Features <span class="toggle-icon">➤</span></h2>
+            </div>
+            <div class="card-content">
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <span class="feature-icon">🎫</span>
+                        <div class="feature-text">
+                            <strong>Ticket Submission & Tracking</strong>
+                            <p>Create and monitor ticket status (Active, Pending, Completed)</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">📋</span>
+                        <div class="feature-text">
+                            <strong>Solution Reports</strong>
+                            <p>View detailed resolution reports from technicians</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">⭐</span>
+                        <div class="feature-text">
+                            <strong>Feedback Options</strong>
+                            <p>Provide feedback with Solved/Not Solved choices</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">💬</span>
+                        <div class="feature-text">
+                            <strong>Communication</strong>
+                            <p>Stay updated with engineer and technician messages</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {% elif request.user.is_engineer %}
+        <div class="header-section">
+            <h1 class="dashboard-title">Engineer Dashboard</h1>
+            <p class="welcome-text">Welcome back, <span class="username">{{ user.username }}</span></p>
+        </div>
+        
+        <div class="info-card" id="engineerCard">
+            <div class="card-header" onclick="toggleCard('engineerCard')">
+                <h2>Key Features <span class="toggle-icon">➤</span></h2>
+            </div>
+            <div class="card-content">
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <span class="feature-icon">🔧</span>
+                        <div class="feature-text">
+                            <strong>Ticket Management</strong>
+                            <p>View, accept, and assign tickets efficiently</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">👥</span>
+                        <div class="feature-text">
+                            <strong>Technician Assignment</strong>
+                            <p>Delegate tasks to your technician team</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">🛒</span>
+                        <div class="feature-text">
+                            <strong>Buy Requests</strong>
+                            <p>Manage technician purchase requests</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">📢</span>
+                        <div class="feature-text">
+                            <strong>Issue Reporting</strong>
+                            <p>Escalate issues to customers with detailed reports</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">⭐</span>
+                        <div class="feature-text">
+                            <strong>Customer Feedback</strong>
+                            <p>Track solution effectiveness via feedback</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {% elif request.user.is_technician %}
+        <div class="header-section">
+            <h1 class="dashboard-title">Technician Dashboard</h1>
+            <p class="welcome-text">Welcome back, <span class="username">{{ user.username }}</span></p>
+        </div>
+        
+        <div class="info-card" id="technicianCard">
+            <div class="card-header" onclick="toggleCard('technicianCard')">
+                <h2>Key Features <span class="toggle-icon">➤</span></h2>
+            </div>
+            <div class="card-content">
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <span class="feature-icon">📌</span>
+                        <div class="feature-text">
+                            <strong>Assigned Tickets</strong>
+                            <p>View and manage your assigned tasks</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">🔧</span>
+                        <div class="feature-text">
+                            <strong>Ticket Resolution</strong>
+                            <p>Resolve issues and submit solutions</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">🛒</span>
+                        <div class="feature-text">
+                            <strong>Buy Requests</strong>
+                            <p>Request items needed for ticket resolution</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">🔔</span>
+                        <div class="feature-text">
+                            <strong>Updates</strong>
+                            <p>Receive notifications for new assignments</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+function toggleCard(cardId) {
+    const card = document.getElementById(cardId);
+    const content = card.querySelector('.card-content');
+    const icon = card.querySelector('.toggle-icon');
+    
+    if (content.classList.contains('active')) {
+        content.classList.remove('active');
+        icon.style.transform = 'rotate(0deg)';
+    } else {
+        content.classList.add('active');
+        icon.style.transform = 'rotate(90deg)';
+    }
+}
+</script>
+
+<style>
+:root {
+    --primary: #2ecc71;
+    --secondary: #3498db;
+    --danger: #e74c3c;
+    --background: #f4f7fa;
+    --text: #2c3e50;
+    --shadow: rgba(0,0,0,0.1);
+    --accent: #ffffff;
+}
+
+.dashboard-wrapper {
+    min-height: 100vh;
+    background: var(--background);
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-section {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.5s ease;
+}
+
+.dashboard-title {
+    font-size: 2.5rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.welcome-text {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.username {
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+.info-card {
+    background: var(--accent);
+    border-radius: 15px;
+    box-shadow: 0 8px 30px var(--shadow);
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    animation: slideIn 0.5s ease forwards;
+}
+
+.card-header {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.card-header:hover {
+    background: linear-gradient(45deg, var(--secondary), var(--primary));
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.toggle-icon {
+    transition: transform 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.card-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+.card-content.active {
+    max-height: 600px; /* Adjusted for content */
+    padding: 1.5rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.feature-item:hover {
+    transform: translateX(5px);
+    background: #e9ecef;
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    width: 40px;
+    text-align: center;
+    color: var(--secondary);
+}
+
+.feature-text strong {
+    color: var(--text);
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 1.1rem;
+}
+
+.feature-text p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard-wrapper {
+        padding: 1rem;
+    }
+
+    .dashboard-container {
+        padding: 1rem;
+    }
+
+    .dashboard-title {
+        font-size: 2rem;
+    }
+
+    .info-card {
+        max-width: 100%;
+    }
+
+    .feature-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .feature-icon {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+</style>
+{% endblock content %}
